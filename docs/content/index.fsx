@@ -35,13 +35,13 @@ Platform Support and Dependencies
 ---------------------------------
 
 - .Net 4.0, .Net 3.5 and Mono: Windows, Linux and Mac.
-- PCL Portable Profiles 7, 47, 78, 259 and 328: Windows 8, Silverlight 5, Windows Phone/SL 8, Windows Phone 8.1.
+- PCL portable profiles 7, 47, 78, 259 and 328: Windows 8, Silverlight 5, Windows Phone/SL 8, Windows Phone 8.1.
 - Xamarin: Android, iOS
 
 The F# extensions support a slightly reduced platform set:
 
 - .Net 4.0, .Net 3.5 and Mono: Windows, Linux and Mac.
-- PCL Portable Profile 47: Windows 8, Silverlight 5
+- PCL portable profiles 7 and 47: Windows 8, Silverlight 5
 - Xamarin: Android, iOS
 
 Package Dependencies:

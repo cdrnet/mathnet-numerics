@@ -84,7 +84,7 @@ type Bundle =
 let summary = "Math.NET Numerics, providing methods and algorithms for numerical computations in science, engineering and every day use."
 let description = "Math.NET Numerics is the numerical foundation of the Math.NET project, aiming to provide methods and algorithms for numerical computations in science, engineering and every day use. "
 let support = "Supports .Net 4.0, .Net 3.5 and Mono on Windows, Linux and Mac; Silverlight 5, WindowsPhone/SL 8, WindowsPhone 8.1 and Windows 8 with PCL portable profiles 7, 47, 78, 259 and 328; Android/iOS with Xamarin."
-let supportFsharp = "Supports F# 3.0 on .Net 4.0, .Net 3.5 and Mono on Windows, Linux and Mac; Silverlight 5 and Windows 8 with PCL portable profile 47; Android/iOS with Xamarin."
+let supportFsharp = "Supports F# 3.0 on .Net 4.0, .Net 3.5 and Mono on Windows, Linux and Mac; Silverlight 5 and Windows 8 with PCL portable profiles 7 and 47; Android/iOS with Xamarin."
 let supportSigned = "Supports .Net 4.0."
 let tags = "math numeric statistics probability integration interpolation regression solve fit linear algebra matrix fft"
 
@@ -141,6 +141,7 @@ let fsharpPack =
         Files =
           [ @"..\..\out\lib\Net35\MathNet.Numerics.FSharp.*", Some libnet35, None;
             @"..\..\out\lib\Net40\MathNet.Numerics.FSharp.*", Some libnet40, None;
+            @"..\..\out\lib\Profile7\MathNet.Numerics.FSharp.*", Some libpcl7, None;
             @"..\..\out\lib\Profile47\MathNet.Numerics.FSharp.*", Some libpcl47, None;
             @"MathNet.Numerics.fsx", None, None;
             @"MathNet.Numerics.IfSharp.fsx", None, None;
@@ -322,15 +323,17 @@ let native64Build subject = MSBuild "" (if hasBuildParam "incremental" then "Bui
 
 Target "BuildMain" (fun _ -> build !! "MathNet.Numerics.sln")
 Target "BuildNet35" (fun _ -> build !! "MathNet.Numerics.Net35Only.sln")
+Target "BuildPortable" (fun _ -> build !! "MathNet.Numerics.Portable.sln")
 Target "BuildAll" (fun _ -> build !! "MathNet.Numerics.All.sln")
 Target "BuildSigned" (fun _ -> buildSigned !! "MathNet.Numerics.sln")
 
 Target "Build" DoNothing
 "Prepare"
   =?> ("BuildNet35", hasBuildParam "net35")
+  =?> ("BuildPortable", hasBuildParam "portable")
   =?> ("BuildSigned", hasBuildParam "signed" || hasBuildParam "release")
   =?> ("BuildAll", hasBuildParam "all" || hasBuildParam "release")
-  =?> ("BuildMain", not (hasBuildParam "all" || hasBuildParam "release" || hasBuildParam "net35" || hasBuildParam "signed"))
+  =?> ("BuildMain", not (hasBuildParam "all" || hasBuildParam "release" || hasBuildParam "net35" || hasBuildParam "portable" || hasBuildParam "signed"))
   ==> "Build"
 
 Target "Native32Build" (fun _ -> native32Build !! "MathNet.Numerics.NativeProviders.sln")
@@ -354,6 +357,7 @@ let test target =
         { p with
             DisableShadowCopy = true
             TimeOut = TimeSpan.FromMinutes 30.
+            Framework = "4.5"
             OutputFile = "TestResults.xml" } |> quick) target
 
 Target "Test" (fun _ -> test !! "out/test/**/*UnitTests*.dll")

@@ -2,23 +2,23 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <Name>FSharpUnitTests-Portable47</Name>
-    <AssemblyName>MathNet.Numerics.FSharp.UnitTests47</AssemblyName>
+    <Name>FSharpUnitTests-Portable259</Name>
+    <AssemblyName>MathNet.Numerics.FSharp.UnitTests259</AssemblyName>
     <RootNamespace>FSharpPortableUnitTests</RootNamespace>
     <OutputType>Library</OutputType>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>90CE8E32-354E-4728-8FE6-87342F469321</ProjectGuid>
+    <ProjectGuid>{156e7da1-5e22-477f-aa78-a5a9452e3d09}</ProjectGuid>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DefineConstants>TRACE;PORTABLE;NOFSSLICESET1D</DefineConstants>
-    <OutputPath>..\..\out\test\Profile47\</OutputPath>
-    <IntermediateOutputPath>..\..\obj\test\Profile47\</IntermediateOutputPath>
-    <BaseIntermediateOutputPath>..\..\obj\test\Profile47\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;PORTABLE;NOSYSNUMERICS;NET45REFLECTION;NOFSSLICESET1D</DefineConstants>
+    <OutputPath>..\..\out\test\Profile259\</OutputPath>
+    <IntermediateOutputPath>..\..\obj\test\Profile259\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\obj\test\Profile259\</BaseIntermediateOutputPath>
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
     <DebugType>pdbonly</DebugType>
@@ -27,10 +27,10 @@
     </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>DEBUG;TRACE;PORTABLE;NOFSSLICESET1D</DefineConstants>
-    <OutputPath>..\..\out\test-debug\Profile47\</OutputPath>
-    <IntermediateOutputPath>..\..\obj\test-debug\Profile47\</IntermediateOutputPath>
-    <BaseIntermediateOutputPath>..\..\obj\test-debug\Profile47\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;PORTABLE;NOSYSNUMERICS;NET45REFLECTION;NOFSSLICESET1D</DefineConstants>
+    <OutputPath>..\..\out\test-debug\Profile259\</OutputPath>
+    <IntermediateOutputPath>..\..\obj\test-debug\Profile259\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\obj\test-debug\Profile259\</BaseIntermediateOutputPath>
     <Optimize>false</Optimize>
     <Tailcalls>false</Tailcalls>
     <DebugSymbols>true</DebugSymbols>
@@ -44,13 +44,13 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
-    <ProjectReference Include="..\FSharp\FSharp-Portable47.fsproj">
-      <Name>FSharp-Portable47</Name>
-      <Project>{F5F14D76-428D-43D7-8431-5B885F1BA419}</Project>
+    <ProjectReference Include="..\FSharp\FSharp-Portable259.fsproj">
+      <Name>FSharp-Portable259</Name>
+      <Project>{7c73c835-a03f-4337-8b8d-5600f9e50f8c}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Numerics\Numerics-Portable47.csproj">
-      <Name>Numerics-Portable47</Name>
-      <Project>{49205185-621E-FFB9-2104-887C9F1BBD13}</Project>
+    <ProjectReference Include="..\Numerics\Numerics-Portable259.csproj">
+      <Name>Numerics-Portable259</Name>
+      <Project>{1C8DBFB2-DB75-4C4B-888B-4AF314FCE3C3}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
