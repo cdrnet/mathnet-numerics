@@ -74,7 +74,172 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework'">
+      <Choose>
+        <When Condition="$(TargetFrameworkVersion) == 'v1.0'">
+        </When>
+        <When Condition="$(TargetFrameworkVersion) == 'v1.1'">
+        </When>
+        <When Condition="$(TargetFrameworkVersion) == 'v2.0'">
+        </When>
+        <Otherwise>
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\net35\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </Otherwise>
+      </Choose>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETPortable'">
+      <Choose>
+        <When Condition="$(TargetFrameworkProfile) == 'Profile328' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </When>
+        <When Condition="$(TargetFrameworkProfile) == 'Profile7' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\portable-net45+netcore45+MonoAndroid1+MonoTouch1\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </When>
+        <When Condition="$(TargetFrameworkProfile) == 'Profile78' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </When>
+        <When Condition="$(TargetFrameworkProfile) == 'Profile259' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </When>
+        <Otherwise>
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\portable-net45+sl5+netcore45+MonoAndroid1+MonoTouch1\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </Otherwise>
+      </Choose>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == 'MonoAndroid'">
+      <ItemGroup>
+        <Reference Include="Corvalius.ArraySlice">
+          <HintPath>..\..\packages\ArraySlice.Fody\Lib\net35\Corvalius.ArraySlice.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == 'MonoTouch'">
+      <ItemGroup>
+        <Reference Include="Corvalius.ArraySlice">
+          <HintPath>..\..\packages\ArraySlice.Fody\Lib\net35\Corvalius.ArraySlice.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == 'Silverlight'">
+      <Choose>
+        <When Condition="$(SilverlightVersion) == 'v3.0'">
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\net35\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </When>
+        <When Condition="$(SilverlightVersion) == 'v4.0'">
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\net35\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </When>
+        <Otherwise>
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </Otherwise>
+      </Choose>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == 'Windows'">
+      <ItemGroup>
+        <Reference Include="Corvalius.ArraySlice">
+          <HintPath>..\..\packages\ArraySlice.Fody\Lib\net35\Corvalius.ArraySlice.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == 'WindowsPhoneApp'">
+      <Choose>
+        <When Condition="$(TargetPlatformVersion) == '7.1'">
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\net35\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </When>
+        <Otherwise>
+          <ItemGroup>
+            <Reference Include="Corvalius.ArraySlice">
+              <HintPath>..\..\packages\ArraySlice.Fody\Lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Corvalius.ArraySlice.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </Otherwise>
+      </Choose>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Corvalius.ArraySlice">
+          <HintPath>..\..\packages\ArraySlice.Fody\Lib\net35\Corvalius.ArraySlice.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <ItemGroup>
+    <Content Include="Fody_ToBeDeleted.txt">
+      <Paket>True</Paket>
+    </Content>
+    <Content Include="FodyWeavers.xml">
+      <Paket>True</Paket>
+    </Content>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
