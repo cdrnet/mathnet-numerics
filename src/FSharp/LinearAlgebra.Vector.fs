@@ -4,7 +4,7 @@
 // http://github.com/mathnet/mathnet-numerics
 // http://mathnetnumerics.codeplex.com
 //
-// Copyright (c) 2009-2014 Math.NET
+// Copyright (c) 2009-2015 Math.NET
 //
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and associated documentation
@@ -234,6 +234,55 @@ module Vector =
     let inline minAbsIndex (A: #Vector<_>) = A.AbsoluteMinimumIndex()
     let inline maxAbsIndex (A: #Vector<_>) = A.AbsoluteMaximumIndex()
 
+
+/// A module which implements functional pointwise operations on an array of vectors.
+[<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
+module Vectors =
+
+    open MathNet.Numerics.Statistics
+
+    let inline reduceArray f (vectors: Vector<_> array) = Vectors.Reduce(vectors, (fun s x -> f s x))
+    let inline reduceSeq f (vectors: Vector<_> seq) = Vectors.Reduce(vectors, (fun s x -> f s x))
+
+    let inline reducePointwiseArray f (vectors: Vector<_> array) = Vectors.ReducePointwise(vectors, (fun s x -> f s x), Zeros.Include)
+    let inline reducePointwiseArraySkipZeros f (vectors: Vector<_> array) = Vectors.ReducePointwise(vectors, (fun s x -> f s x), Zeros.AllowSkip)
+    let inline reducePointwiseSeq f (vectors: Vector<_> seq) = Vectors.ReducePointwise(vectors, (fun s x -> f s x), Zeros.Include)
+    let inline reducePointwiseSeqSkipZeros f (vectors: Vector<_> seq) = Vectors.ReducePointwise(vectors, (fun s x -> f s x), Zeros.AllowSkip)
+
+    let inline foldArray f state (vectors: Vector<_> array) = Vectors.Fold(vectors, (fun s x -> f s x), state)
+    let inline foldSeq f state (vectors: Vector<_> seq) = Vectors.Fold(vectors, (fun s x -> f s x), state)
+
+    let inline foldPointwiseArray f state (vectors: Vector<_> array) = Vectors.FoldPointwise(vectors, (fun s x -> f s x), state, Zeros.Include)
+    let inline foldPointwiseArraySkipZeros f state (vectors: Vector<_> array) = Vectors.FoldPointwise(vectors, (fun s x -> f s x), state, Zeros.AllowSkip)
+    let inline foldPointwiseSeq f state (vectors: Vector<_> seq) = Vectors.FoldPointwise(vectors, (fun s x -> f s x), state, Zeros.Include)
+    let inline foldPointwiseSeqSkipZeros f state (vectors: Vector<_> seq) = Vectors.FoldPointwise(vectors, (fun s x -> f s x), state, Zeros.AllowSkip)
+
+    let inline transpose (vectors: Vector<_> array) = Vectors.Transpose(vectors)
+    let inline transposeArrayMap f (vectors: Vector<_> array) = Vectors.TransposeArrayMap(vectors, (fun a -> f a))
+
+    let inline sum (vectors: Vector<_> array) = Vectors.Sum(vectors)
+
+    // Statistics
+    let inline min (vectors: Vector<float> array) = VectorArrayStatistics.Minimum(vectors)
+    let inline max (vectors: Vector<float> array) = VectorArrayStatistics.Maximum(vectors)
+    let inline mean (vectors: Vector<float> array) = VectorArrayStatistics.Mean(vectors)
+    let inline variance (vectors: Vector<float> array) = VectorArrayStatistics.Variance(vectors)
+    let inline stdDev (vectors: Vector<float> array) = VectorArrayStatistics.StandardDeviation(vectors)
+    let inline skewness (vectors: Vector<float> array) = VectorArrayStatistics.Skewness(vectors)
+    let inline kurtosis (vectors: Vector<float> array) = VectorArrayStatistics.Kurtosis(vectors)
+    let inline rms (vectors: Vector<float> array) = VectorArrayStatistics.RootMeanSquare(vectors)
+    let inline order order (vectors: Vector<float> array) = VectorArrayStatistics.OrderStatistic(vectors, order)
+    let inline median (vectors: Vector<float> array) = VectorArrayStatistics.Median(vectors)
+    let inline lowerQuantile p (vectors: Vector<float> array) = VectorArrayStatistics.LowerQuartile(vectors)
+    let inline upperQuantile p (vectors: Vector<float> array) = VectorArrayStatistics.UpperQuartile(vectors)
+    let inline iqr p (vectors: Vector<float> array) = VectorArrayStatistics.InterquartileRange(vectors)
+    let inline percentile p (vectors: Vector<float> array) = VectorArrayStatistics.Percentile(vectors, p)
+    let inline quantile tau (vectors: Vector<float> array) = VectorArrayStatistics.Quantile(vectors, tau)
+    let inline quantileDef tau definition (vectors: Vector<float> array) = VectorArrayStatistics.QuantileCustom(vectors, tau, definition)
+    let inline quantileRank x (vectors: Vector<float> array) = VectorArrayStatistics.QuantileRank(vectors, x, RankDefinition.Default)
+    let inline quantileRankDef x definition (vectors: Vector<float> array) = VectorArrayStatistics.QuantileRank(vectors, x, definition)
+    let inline empiricalCDF x (vectors: Vector<float> array) = VectorArrayStatistics.EmpiricalCDF(vectors, x)
+    let inline empiricalInvCDF tau (vectors: Vector<float> array) = VectorArrayStatistics.EmpiricalInvCDF(vectors, tau)
 
 
 /// A module which helps constructing generic dense vectors.

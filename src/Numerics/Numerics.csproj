@@ -99,6 +99,7 @@
     <Compile Include="Interpolation\TransformedInterpolation.cs" />
     <Compile Include="LinearAlgebra\Options.cs" />
     <Compile Include="LinearAlgebra\Solvers\DelegateStopCriterion.cs" />
+    <Compile Include="LinearAlgebra\Vectors.cs" />
     <Compile Include="LinearRegression\Options.cs" />
     <Compile Include="Precision.Comparison.cs" />
     <Compile Include="Precision.Equality.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="SpecialFunctions\ModifiedBessel.cs" />
     <Compile Include="SpecialFunctions\Logistic.cs" />
     <Compile Include="SpecialFunctions\TestFunctions.cs" />
+    <Compile Include="Statistics\VectorArrayStatistics.cs" />
     <Compile Include="Statistics\ArrayStatistics.cs" />
     <Compile Include="Statistics\RunningStatistics.cs" />
     <Compile Include="Statistics\QuantileDefinition.cs" />
