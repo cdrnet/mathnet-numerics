@@ -1,5 +1,4 @@
 ﻿using System;
-using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.Optimization.ObjectiveFunctions;
 
 namespace MathNet.Numerics.Optimization
@@ -7,59 +6,27 @@ namespace MathNet.Numerics.Optimization
     public static class ObjectiveFunction
     {
         /// <summary>
-        /// Objective function where neither Gradient nor Hessian is available.
+        /// Objective function where neither first nor second derivative is available. Lazy evaluation.
         /// </summary>
-        public static IObjectiveFunction Value(Func<Vector<double>, double> function)
+        public static IObjectiveFunction Value(Func<double, double> function)
         {
-            return new ValueObjectiveFunction(function);
+            return new SimpleObjectiveFunction(function);
         }
 
         /// <summary>
-        /// Objective function where the Gradient is available. Greedy evaluation.
+        /// Objective function where the first derivative is available. Lazy evaluation.
         /// </summary>
-        public static IObjectiveFunction Gradient(Func<Vector<double>, Tuple<double, Vector<double>>> function)
+        public static IObjectiveFunction FirstDerivative(Func<double, double> function, Func<double, double> derivative)
         {
-            return new GradientObjectiveFunction(function);
+            return new SimpleObjectiveFunction(function, derivative);
         }
 
         /// <summary>
-        /// Objective function where the Gradient is available. Lazy evaluation.
+        /// Objective function where the first and second derivative are available. Lazy evaluation.
         /// </summary>
-        public static IObjectiveFunction Gradient(Func<Vector<double>, double> function, Func<Vector<double>, Vector<double>> gradient)
+        public static IObjectiveFunction FirstSecondDerivative(Func<double, double> function, Func<double, double> derivative, Func<double, double> secondDerivative)
         {
-            return new LazyObjectiveFunction(function, gradient: gradient);
-        }
-
-        /// <summary>
-        /// Objective function where the Hessian is available. Greedy evaluation.
-        /// </summary>
-        public static IObjectiveFunction Hessian(Func<Vector<double>, Tuple<double, Matrix<double>>> function)
-        {
-            return new HessianObjectiveFunction(function);
-        }
-
-        /// <summary>
-        /// Objective function where the Hessian is available. Lazy evaluation.
-        /// </summary>
-        public static IObjectiveFunction Hessian(Func<Vector<double>, double> function, Func<Vector<double>, Matrix<double>> hessian)
-        {
-            return new LazyObjectiveFunction(function, hessian: hessian);
-        }
-
-        /// <summary>
-        /// Objective function where both Gradient and Hessian are available. Greedy evaluation.
-        /// </summary>
-        public static IObjectiveFunction GradientHessian(Func<Vector<double>, Tuple<double, Vector<double>, Matrix<double>>> function)
-        {
-            return new GradientHessianObjectiveFunction(function);
-        }
-
-        /// <summary>
-        /// Objective function where both Gradient and Hessian are available. Lazy evaluation.
-        /// </summary>
-        public static IObjectiveFunction GradientHessian(Func<Vector<double>, double> function, Func<Vector<double>, Vector<double>> gradient, Func<Vector<double>, Matrix<double>> hessian)
-        {
-            return new LazyObjectiveFunction(function, gradient: gradient, hessian: hessian);
+            return new SimpleObjectiveFunction(function, derivative, secondDerivative);
         }
     }
 }

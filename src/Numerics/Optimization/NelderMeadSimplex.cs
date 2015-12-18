@@ -66,7 +66,7 @@ namespace MathNet.Numerics.Optimization
         /// <param name="objectiveFunction">The objective function, no gradient or hessian needed</param>
         /// <param name="initialGuess">The intial guess</param>
         /// <returns>The minimum point</returns>
-        public MinimizationResult FindMinimum(IObjectiveFunction objectiveFunction, Vector<double> initialGuess)
+        public MinimizationResult FindMinimum(IObjectiveVectorFunction objectiveFunction, Vector<double> initialGuess)
         {
             var initalPertubation = new MathNet.Numerics.LinearAlgebra.Double.DenseVector(initialGuess.Count);
             for (int i = 0; i < initialGuess.Count; i++)
@@ -83,7 +83,7 @@ namespace MathNet.Numerics.Optimization
         /// <param name="initialGuess">The intial guess</param>
         /// <param name="initalPertubation">The inital pertubation</param>
         /// <returns>The minimum point</returns>
-        public MinimizationResult FindMinimum(IObjectiveFunction objectiveFunction, Vector<double> initialGuess, Vector<double> initalPertubation)
+        public MinimizationResult FindMinimum(IObjectiveVectorFunction objectiveFunction, Vector<double> initialGuess, Vector<double> initalPertubation)
         {
             // confirm that we are in a position to commence
             if (objectiveFunction == null)
@@ -163,7 +163,7 @@ namespace MathNet.Numerics.Optimization
         /// <param name="vertices"></param>
         /// <param name="objectiveFunction"></param>
         /// <returns></returns>
-        private static double[] InitializeErrorValues(Vector<double>[] vertices, IObjectiveFunction objectiveFunction)
+        private static double[] InitializeErrorValues(Vector<double>[] vertices, IObjectiveVectorFunction objectiveFunction)
         {
             double[] errorValues = new double[vertices.Length];
             for (int i = 0; i < vertices.Length; i++)
@@ -278,7 +278,7 @@ namespace MathNet.Numerics.Optimization
         /// <param name="objectiveFunction"></param>
         /// <returns></returns>
         private static double TryToScaleSimplex(double scaleFactor, ref ErrorProfile errorProfile, Vector<double>[] vertices,
-                                          double[] errorValues, IObjectiveFunction objectiveFunction)
+                                          double[] errorValues, IObjectiveVectorFunction objectiveFunction)
         {
             // find the centroid through which we will reflect
             Vector<double> centroid = ComputeCentroid(vertices, errorProfile);
@@ -311,7 +311,7 @@ namespace MathNet.Numerics.Optimization
         /// <param name="errorValues"></param>
         /// <param name="objectiveFunction"></param>
         private static void ShrinkSimplex(ErrorProfile errorProfile, Vector<double>[] vertices, double[] errorValues,
-                                      IObjectiveFunction objectiveFunction)
+                                      IObjectiveVectorFunction objectiveFunction)
         {
             Vector<double> lowestVertex = vertices[errorProfile.LowestIndex];
             for (int i = 0; i < vertices.Length; i++)

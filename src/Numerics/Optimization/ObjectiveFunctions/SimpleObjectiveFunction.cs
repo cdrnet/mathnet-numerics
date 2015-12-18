@@ -2,27 +2,27 @@
 
 namespace MathNet.Numerics.Optimization.ObjectiveFunctions
 {
-    internal class SimpleObjectiveFunction1D : IObjectiveFunction1D
+    internal class SimpleObjectiveFunction : IObjectiveFunction
     {
         public Func<double, double> Objective { get; private set; }
         public Func<double, double> Derivative { get; private set; }
         public Func<double, double> SecondDerivative { get; private set; }
 
-        public SimpleObjectiveFunction1D(Func<double, double> objective)
+        public SimpleObjectiveFunction(Func<double, double> objective)
         {
             Objective = objective;
             Derivative = null;
             SecondDerivative = null;
         }
 
-        public SimpleObjectiveFunction1D(Func<double, double> objective, Func<double, double> derivative)
+        public SimpleObjectiveFunction(Func<double, double> objective, Func<double, double> derivative)
         {
             Objective = objective;
             Derivative = derivative;
             SecondDerivative = null;
         }
 
-        public SimpleObjectiveFunction1D(Func<double, double> objective, Func<double, double> derivative, Func<double,double> secondDerivative)
+        public SimpleObjectiveFunction(Func<double, double> objective, Func<double, double> derivative, Func<double,double> secondDerivative)
         {
             Objective = objective;
             Derivative = derivative;
@@ -39,21 +39,21 @@ namespace MathNet.Numerics.Optimization.ObjectiveFunctions
             get { return SecondDerivative != null; }
         }
 
-        public IEvaluation1D Evaluate(double point)
+        public IEvaluation Evaluate(double point)
         {
-            return new CachedEvaluation1D(this, point);
+            return new CachedEvaluation(this, point);
         }
     }
 
-    internal class CachedEvaluation1D : IEvaluation1D
+    internal class CachedEvaluation : IEvaluation
     {
-        private readonly SimpleObjectiveFunction1D _objective;
+        private readonly SimpleObjectiveFunction _objective;
         private readonly double _point;
         private double? _value;
         private double? _derivative;
         private double? _secondDerivative;
 
-        public CachedEvaluation1D(SimpleObjectiveFunction1D objective, double point)
+        public CachedEvaluation(SimpleObjectiveFunction objective, double point)
         {
             _objective = objective;
             _point = point;

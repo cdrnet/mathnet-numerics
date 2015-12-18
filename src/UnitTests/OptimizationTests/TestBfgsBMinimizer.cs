@@ -11,7 +11,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
 	    [Test]
 		public void FindMinimum_Rosenbrock_Easy()
 		{
-            var obj = ObjectiveFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
+            var obj = ObjectiveVectorFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
 			var solver = new BfgsBMinimizer (1e-5, 1e-5, 1e-5, maximumIterations: 1000);
 			var lowerBound = new DenseVector(new[]{ -5.0, -5.0 });
 			var upperBound = new DenseVector(new[]{ 5.0, 5.0 });
@@ -26,7 +26,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
 		[Test]
 		public void FindMinimum_Rosenbrock_Hard()
 		{
-            var obj = ObjectiveFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
+            var obj = ObjectiveVectorFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
 			var solver = new BfgsBMinimizer (1e-5, 1e-5, 1e-5, maximumIterations: 1000);
 
 			var lowerBound = new DenseVector(new[]{ -5.0, -5.0 });
@@ -43,7 +43,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
 		[Test]
 		public void FindMinimum_Rosenbrock_Overton()
 		{
-            var obj = ObjectiveFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
+            var obj = ObjectiveVectorFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
 			var solver = new BfgsBMinimizer (1e-5, 1e-5, 1e-5, maximumIterations: 1000);
 
 			var lowerBound = new DenseVector(new[]{ -5.0, -5.0 });
@@ -59,7 +59,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
 		[Test]
 		public void FindMinimum_Rosenbrock_Easy_OneBoundary()
 		{
-            var obj = ObjectiveFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
+            var obj = ObjectiveVectorFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
 			var solver = new BfgsBMinimizer (1e-5, 1e-5, 1e-5, maximumIterations: 1000);
 			var lowerBound = new DenseVector(new[]{ 1.0, -5.0 });
 			var upperBound = new DenseVector(new[]{ 5.0, 5.0 });
@@ -74,7 +74,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
 		[Test]
 		public void FindMinimum_Rosenbrock_Easy_TwoBoundaries()
 		{
-            var obj = ObjectiveFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
+            var obj = ObjectiveVectorFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
 			var solver = new BfgsBMinimizer (1e-5, 1e-5, 1e-5, maximumIterations: 1000);
 			var lowerBound = new DenseVector(new[]{ 1.0, 1.0 });
 			var upperBound = new DenseVector(new[]{ 5.0, 5.0 });

@@ -1,33 +1,17 @@
-﻿using MathNet.Numerics.LinearAlgebra;
-
-namespace MathNet.Numerics.Optimization
+﻿namespace MathNet.Numerics.Optimization
 {
-    /// <summary>
-    /// Objective function with a frozen evaluation that must not be changed from the outside.
-    /// </summary>
-    public interface IObjectiveFunctionEvaluation
+    public interface IEvaluation
     {
-        /// <summary>Create a new unevaluated and independent copy of this objective function</summary>
-        IObjectiveFunction CreateNew();
-
-        /// <summary>Create a new independent copy of this objective function, evaluated at the same point.</summary>
-        IObjectiveFunction Fork();
-
-        Vector<double> Point { get; }
+        double Point { get; }
         double Value { get; }
-
-        bool IsGradientSupported { get; }
-        Vector<double> Gradient { get; }
-
-        bool IsHessianSupported { get; }
-        Matrix<double> Hessian { get; }
+        double Derivative { get; }
+        double SecondDerivative { get; }
     }
 
-    /// <summary>
-    /// Objective function with a mutable evaluation.
-    /// </summary>
-    public interface IObjectiveFunction : IObjectiveFunctionEvaluation
+    public interface IObjectiveFunction
     {
-        void EvaluateAt(Vector<double> point);
+        bool DerivativeSupported { get; }
+        bool SecondDerivativeSupported { get; }
+        IEvaluation Evaluate(double point);
     }
 }

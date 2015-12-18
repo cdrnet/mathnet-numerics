@@ -2,7 +2,7 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace MathNet.Numerics.Optimization.ObjectiveFunctions
 {
-    public abstract class ObjectiveFunctionBase : IObjectiveFunction
+    public abstract class ObjectiveFunctionBase : IObjectiveVectorFunction
     {
         protected ObjectiveFunctionBase(bool isGradientSupported, bool isHessianSupported)
         {
@@ -10,9 +10,9 @@ namespace MathNet.Numerics.Optimization.ObjectiveFunctions
             IsHessianSupported = isHessianSupported;
         }
 
-        public abstract IObjectiveFunction CreateNew();
+        public abstract IObjectiveVectorFunction CreateNew();
 
-        public virtual IObjectiveFunction Fork()
+        public virtual IObjectiveVectorFunction Fork()
         {
             // we need to deep-clone values since they may be updated inplace on evaluation
             ObjectiveFunctionBase objective = (ObjectiveFunctionBase)CreateNew();

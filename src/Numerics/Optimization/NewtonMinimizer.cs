@@ -17,7 +17,7 @@ namespace MathNet.Numerics.Optimization
             UseLineSearch = useLineSearch;
         }
 
-        public MinimizationResult FindMinimum(IObjectiveFunction objective, Vector<double> initialGuess)
+        public MinimizationResult FindMinimum(IObjectiveVectorFunction objective, Vector<double> initialGuess)
         {
             if (!objective.IsGradientSupported)
             {
@@ -96,7 +96,7 @@ namespace MathNet.Numerics.Optimization
             return gradient.Norm(2.0) < GradientTolerance;
         }
 
-        static void ValidateGradient(IObjectiveFunction eval)
+        static void ValidateGradient(IObjectiveVectorFunction eval)
         {
             foreach (var x in eval.Gradient)
             {
@@ -107,13 +107,13 @@ namespace MathNet.Numerics.Optimization
             }
         }
 
-        private void ValidateObjective(IObjectiveFunction eval)
+        private void ValidateObjective(IObjectiveVectorFunction eval)
         {
             if (Double.IsNaN(eval.Value) || Double.IsInfinity(eval.Value))
                 throw new EvaluationException("Non-finite objective function returned.", eval);
         }
 
-        private void ValidateHessian(IObjectiveFunction eval)
+        private void ValidateHessian(IObjectiveVectorFunction eval)
         {
             for (int ii = 0; ii < eval.Hessian.RowCount; ++ii)
             {

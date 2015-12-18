@@ -19,7 +19,7 @@ namespace MathNet.Numerics.Optimization.LineSearch
         }
 
         // Implemented following http://www.math.washington.edu/~burke/crs/408/lectures/L9-weak-Wolfe.pdf
-        public LineSearchResult FindConformingStep(IObjectiveFunctionEvaluation objective, Vector<double> searchDirection, double initialStep, double upperBound = Double.PositiveInfinity)
+        public LineSearchResult FindConformingStep(IVectorEvaluation objective, Vector<double> searchDirection, double initialStep, double upperBound = Double.PositiveInfinity)
         {
             double lowerBound = 0.0;
             double step = initialStep;
@@ -30,7 +30,7 @@ namespace MathNet.Numerics.Optimization.LineSearch
             double initialDd = searchDirection*initialGradient;
 
             int ii;
-            IObjectiveFunction candidateEval = objective.CreateNew();
+            IObjectiveVectorFunction candidateEval = objective.CreateNew();
             MinimizationResult.ExitCondition reasonForExit = MinimizationResult.ExitCondition.None;
             for (ii = 0; ii < this.MaximumIterations; ++ii)
             {
@@ -78,7 +78,7 @@ namespace MathNet.Numerics.Optimization.LineSearch
             return new LineSearchResult(candidateEval, ii, step, reasonForExit);
         }
 
-        bool Conforms(IObjectiveFunction startingPoint, Vector<double> searchDirection, double step, IObjectiveFunction endingPoint)
+        bool Conforms(IObjectiveVectorFunction startingPoint, Vector<double> searchDirection, double step, IObjectiveVectorFunction endingPoint)
         {
             bool sufficientDecrease = endingPoint.Value <= startingPoint.Value + C1*step*(startingPoint.Gradient*searchDirection);
             bool notTooSteep = endingPoint.Gradient*searchDirection >= C2*startingPoint.Gradient*searchDirection;
@@ -86,13 +86,13 @@ namespace MathNet.Numerics.Optimization.LineSearch
             return step > 0 && sufficientDecrease && notTooSteep;
         }
 
-        void ValidateValue(IObjectiveFunction eval)
+        void ValidateValue(IObjectiveVectorFunction eval)
         {
             if (!IsFinite(eval.Value))
                 throw new EvaluationException(String.Format("Non-finite value returned by objective function: {0}", eval.Value), eval);
         }
 
-        void ValidateGradient(IObjectiveFunction eval)
+        void ValidateGradient(IObjectiveVectorFunction eval)
         {
             foreach (double x in eval.Gradient)
             {

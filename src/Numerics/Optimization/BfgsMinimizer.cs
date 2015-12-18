@@ -17,7 +17,7 @@ namespace MathNet.Numerics.Optimization
             MaximumIterations = maximumIterations;
         }
 
-        public MinimizationResult FindMinimum(IObjectiveFunction objective, Vector<double> initialGuess)
+        public MinimizationResult FindMinimum(IObjectiveVectorFunction objective, Vector<double> initialGuess)
         {
             if (!objective.IsGradientSupported)
                 throw new IncompatibleObjectiveException("Gradient not supported in objective function, but required for BFGS minimization.");
@@ -113,7 +113,7 @@ namespace MathNet.Numerics.Optimization
             return new MinimizationWithLineSearchResult(objective, iterations, MinimizationResult.ExitCondition.AbsoluteGradient, totalLineSearchSteps, iterationsWithNontrivialLineSearch);
         }
 
-        private MinimizationResult.ExitCondition ExitCriteriaSatisfied(IObjectiveFunction candidatePoint, Vector<double> lastPoint)
+        private MinimizationResult.ExitCondition ExitCriteriaSatisfied(IObjectiveVectorFunction candidatePoint, Vector<double> lastPoint)
         {
             Vector<double> relGrad = new LinearAlgebra.Double.DenseVector(candidatePoint.Point.Count);
 			double relativeGradient = 0.0;
@@ -145,7 +145,7 @@ namespace MathNet.Numerics.Optimization
 			return MinimizationResult.ExitCondition.None;
         }
 
-        private void ValidateGradient(IObjectiveFunction objective)
+        private void ValidateGradient(IObjectiveVectorFunction objective)
         {
             foreach (var x in objective.Gradient)
             {
@@ -154,7 +154,7 @@ namespace MathNet.Numerics.Optimization
             }
         }
 
-        private void ValidateObjective(IObjectiveFunction objective)
+        private void ValidateObjective(IObjectiveVectorFunction objective)
         {
             if (Double.IsNaN(objective.Value) || Double.IsInfinity(objective.Value))
                 throw new EvaluationException("Non-finite objective function returned.", objective);

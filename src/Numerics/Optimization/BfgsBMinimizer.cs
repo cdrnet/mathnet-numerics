@@ -21,7 +21,7 @@ namespace MathNet.Numerics.Optimization
             FunctionProgressTolerance = functionProgressTolerance;
         }
 
-        public MinimizationResult FindMinimum(IObjectiveFunction objective, Vector<double> lowerBound, Vector<double> upperBound, Vector<double> initialGuess)
+        public MinimizationResult FindMinimum(IObjectiveVectorFunction objective, Vector<double> lowerBound, Vector<double> upperBound, Vector<double> initialGuess)
         {
             if (!objective.IsGradientSupported)
                 throw new IncompatibleObjectiveException("Gradient not supported in objective function, but required for BFGS minimization.");
@@ -265,7 +265,7 @@ namespace MathNet.Numerics.Optimization
 
         const double VerySmall = 1e-15;
 
-        MinimizationResult.ExitCondition ExitCriteriaSatisfied(IObjectiveFunction candidatePoint, IObjectiveFunction lastPoint, Vector<double> lowerBound, Vector<double> upperBound, int iterations)
+        MinimizationResult.ExitCondition ExitCriteriaSatisfied(IObjectiveVectorFunction candidatePoint, IObjectiveVectorFunction lastPoint, Vector<double> lowerBound, Vector<double> upperBound, int iterations)
         {
             Vector<double> relGrad = new DenseVector(candidatePoint.Point.Count);
             double relativeGradient = 0.0;
@@ -315,7 +315,7 @@ namespace MathNet.Numerics.Optimization
             return MinimizationResult.ExitCondition.None;
         }
 
-        void ValidateGradient(IObjectiveFunction eval)
+        void ValidateGradient(IObjectiveVectorFunction eval)
         {
             foreach (var x in eval.Gradient)
             {
@@ -324,7 +324,7 @@ namespace MathNet.Numerics.Optimization
             }
         }
 
-        void ValidateObjective(IObjectiveFunction eval)
+        void ValidateObjective(IObjectiveVectorFunction eval)
         {
             if (Double.IsNaN(eval.Value) || Double.IsInfinity(eval.Value))
                 throw new EvaluationException("Non-finite objective function returned.", eval);

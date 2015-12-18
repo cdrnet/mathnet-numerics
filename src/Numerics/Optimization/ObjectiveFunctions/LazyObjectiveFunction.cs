@@ -3,7 +3,7 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace MathNet.Numerics.Optimization.ObjectiveFunctions
 {
-    internal class LazyObjectiveFunction : IObjectiveFunction
+    internal class LazyObjectiveFunction : IObjectiveVectorFunction
     {
         readonly Func<Vector<double>, double> _function;
         readonly Func<Vector<double>, Vector<double>> _gradient;
@@ -30,12 +30,12 @@ namespace MathNet.Numerics.Optimization.ObjectiveFunctions
             IsHessianSupported = hessian != null;
         }
 
-        public IObjectiveFunction CreateNew()
+        public IObjectiveVectorFunction CreateNew()
         {
             return new LazyObjectiveFunction(_function, _gradient, _hessian);
         }
 
-        public IObjectiveFunction Fork()
+        public IObjectiveVectorFunction Fork()
         {
             // no need to deep-clone values since they are replaced on evaluation
             return new LazyObjectiveFunction(_function, _gradient, _hessian)

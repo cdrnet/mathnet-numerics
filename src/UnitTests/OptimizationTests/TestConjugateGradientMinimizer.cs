@@ -11,7 +11,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
         [Test]
         public void FindMinimum_Rosenbrock_Easy()
         {
-            var obj = ObjectiveFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
+            var obj = ObjectiveVectorFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
             var solver = new ConjugateGradientMinimizer(1e-5, 1000);
             var result = solver.FindMinimum(obj, new DenseVector(new[]{1.2,1.2}));
 
@@ -22,7 +22,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
         [Test]
         public void FindMinimum_Rosenbrock_Hard()
         {
-            var obj = ObjectiveFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
+            var obj = ObjectiveVectorFunction.Gradient(RosenbrockFunction.Value, RosenbrockFunction.Gradient);
             var solver = new ConjugateGradientMinimizer(1e-5, 1000);
             var result = solver.FindMinimum(obj, new DenseVector(new[] { -1.2, 1.0 }));
 

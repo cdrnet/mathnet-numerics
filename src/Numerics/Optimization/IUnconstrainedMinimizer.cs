@@ -4,6 +4,6 @@ namespace MathNet.Numerics.Optimization
 {
     public interface IUnconstrainedMinimizer
     {
-        MinimizationResult FindMinimum(IObjectiveFunction objective, Vector<double> initialGuess);
+        MinimizationResult FindMinimum(IObjectiveVectorFunction objective, Vector<double> initialGuess);
     }
 }

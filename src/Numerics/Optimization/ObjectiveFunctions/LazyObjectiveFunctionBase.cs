@@ -2,7 +2,7 @@
 
 namespace MathNet.Numerics.Optimization.ObjectiveFunctions
 {
-    public abstract class LazyObjectiveFunctionBase : IObjectiveFunction
+    public abstract class LazyObjectiveFunctionBase : IObjectiveVectorFunction
     {
         Vector<double> _point;
 
@@ -21,9 +21,9 @@ namespace MathNet.Numerics.Optimization.ObjectiveFunctions
             IsHessianSupported = hessianSupported;
         }
 
-        public abstract IObjectiveFunction CreateNew();
+        public abstract IObjectiveVectorFunction CreateNew();
 
-        public virtual IObjectiveFunction Fork()
+        public virtual IObjectiveVectorFunction Fork()
         {
             // we need to deep-clone values since they may be updated inplace on evaluation
             LazyObjectiveFunctionBase fork = (LazyObjectiveFunctionBase)CreateNew();

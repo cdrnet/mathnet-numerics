@@ -15,7 +15,7 @@ namespace MathNet.Numerics.Optimization
             MaximumIterations = maximumIterations;
         }
 
-        public MinimizationResult FindMinimum(IObjectiveFunction objective, Vector<double> initialGuess)
+        public MinimizationResult FindMinimum(IObjectiveVectorFunction objective, Vector<double> initialGuess)
         {
             if (!objective.IsGradientSupported)
                 throw new IncompatibleObjectiveException("Gradient not supported in objective function, but required for ConjugateGradient minimization.");
@@ -97,7 +97,7 @@ namespace MathNet.Numerics.Optimization
             return gradient.Norm(2.0) < GradientTolerance;
         }
 
-        void ValidateGradient(IObjectiveFunction objective)
+        void ValidateGradient(IObjectiveVectorFunction objective)
         {
             foreach (var x in objective.Gradient)
             {
@@ -106,7 +106,7 @@ namespace MathNet.Numerics.Optimization
             }
         }
 
-        void ValidateObjective(IObjectiveFunction objective)
+        void ValidateObjective(IObjectiveVectorFunction objective)
         {
             if (Double.IsNaN(objective.Value) || Double.IsInfinity(objective.Value))
                 throw new EvaluationException("Non-finite objective function returned.", objective);

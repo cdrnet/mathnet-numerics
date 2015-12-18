@@ -19,15 +19,15 @@ namespace MathNet.Numerics.Optimization
             UpperExpansionFactor = upperExpansionFactor;
         }
 
-        public MinimizationResult1D FindMinimum(IObjectiveFunction1D objective, double lowerBound, double upperBound)
+        public MinimizationResult1D FindMinimum(IObjectiveFunction objective, double lowerBound, double upperBound)
         {
             if (upperBound <= lowerBound)
                 throw new OptimizationException("Lower bound must be lower than upper bound.");
 
             double middlePointX = lowerBound + (upperBound - lowerBound)/(1 + Constants.GoldenRatio);
-            IEvaluation1D lower = objective.Evaluate(lowerBound);
-            IEvaluation1D middle = objective.Evaluate(middlePointX);
-            IEvaluation1D upper = objective.Evaluate(upperBound);
+            IEvaluation lower = objective.Evaluate(lowerBound);
+            IEvaluation middle = objective.Evaluate(middlePointX);
+            IEvaluation upper = objective.Evaluate(upperBound);
 
             ValueChecker(lower.Value, lowerBound);
             ValueChecker(middle.Value, middlePointX);

@@ -41,7 +41,7 @@ namespace MathNet.Numerics.Optimization.LineSearch
         /// <param name="startingPoint">The objective function being optimized, evaluated at the starting point of the search</param>
         /// <param name="searchDirection">Search direction</param>
         /// <param name="initialStep">Initial size of the step in the search direction</param>
-        public LineSearchResult FindConformingStep(IObjectiveFunctionEvaluation startingPoint, Vector<double> searchDirection, double initialStep)
+        public LineSearchResult FindConformingStep(IVectorEvaluation startingPoint, Vector<double> searchDirection, double initialStep)
         {
             if (!startingPoint.IsGradientSupported)
                 throw new ArgumentException("objective function does not support gradient");
@@ -112,7 +112,7 @@ namespace MathNet.Numerics.Optimization.LineSearch
             return new LineSearchResult(objective, ii, step, reasonForExit);
         }
 
-        bool Conforms(IObjectiveFunction startingPoint, Vector<double> searchDirection, double step, IObjectiveFunction endingPoint)
+        bool Conforms(IObjectiveVectorFunction startingPoint, Vector<double> searchDirection, double step, IObjectiveVectorFunction endingPoint)
         {
             bool sufficientDecrease = endingPoint.Value <= startingPoint.Value + _c1 * step * (startingPoint.Gradient * searchDirection);
             bool notTooSteep = endingPoint.Gradient * searchDirection >= _c2 * startingPoint.Gradient * searchDirection;
@@ -120,7 +120,7 @@ namespace MathNet.Numerics.Optimization.LineSearch
             return step > 0 && sufficientDecrease && notTooSteep;
         }
 
-        static void ValidateValue(IObjectiveFunction eval)
+        static void ValidateValue(IObjectiveVectorFunction eval)
         {
             if (!IsFinite(eval.Value))
             {
@@ -128,7 +128,7 @@ namespace MathNet.Numerics.Optimization.LineSearch
             }
         }
 
-        static void ValidateGradient(IObjectiveFunction eval)
+        static void ValidateGradient(IObjectiveVectorFunction eval)
         {
             foreach (double x in eval.Gradient)
             {

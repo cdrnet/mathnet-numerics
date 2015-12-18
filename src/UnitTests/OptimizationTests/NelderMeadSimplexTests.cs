@@ -52,7 +52,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
             var nms = new NelderMeadSimplex(1e-6, 1000);
             double a = 5;
             double b = 10;
-            IObjectiveFunction objFun = ObjectiveFunction.Value((constants)=>
+            IObjectiveVectorFunction objFun = ObjectiveVectorFunction.Value((constants)=>
             {
                 double ssq = 0;
                 System.Random r = new System.Random();
@@ -79,7 +79,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
         [Test]
         public void NMS_FindMinimum_Rosenbrock_Easy()
         {
-            var obj = ObjectiveFunction.Value(RosenbrockFunction.Value);
+            var obj = ObjectiveVectorFunction.Value(RosenbrockFunction.Value);
             var solver = new NelderMeadSimplex(1e-5, maximumIterations: 1000);
             var initialGuess = new DenseVector(new[] { 1.2, 1.2 });
 
@@ -93,7 +93,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
         [Test]
         public void NMS_FindMinimum_Rosenbrock_Hard()
         {
-            var obj = ObjectiveFunction.Value(RosenbrockFunction.Value);
+            var obj = ObjectiveVectorFunction.Value(RosenbrockFunction.Value);
             var solver = new NelderMeadSimplex(1e-5, maximumIterations: 1000);
 
             var initialGuess = new DenseVector(new[] { -1.2, 1.0 });

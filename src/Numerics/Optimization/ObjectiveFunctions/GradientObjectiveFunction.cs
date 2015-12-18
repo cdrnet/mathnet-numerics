@@ -3,7 +3,7 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace MathNet.Numerics.Optimization.ObjectiveFunctions
 {
-    internal class GradientObjectiveFunction : IObjectiveFunction
+    internal class GradientObjectiveFunction : IObjectiveVectorFunction
     {
         readonly Func<Vector<double>, Tuple<double, Vector<double>>> _function;
 
@@ -12,12 +12,12 @@ namespace MathNet.Numerics.Optimization.ObjectiveFunctions
             _function = function;
         }
 
-        public IObjectiveFunction CreateNew()
+        public IObjectiveVectorFunction CreateNew()
         {
             return new GradientObjectiveFunction(_function);
         }
 
-        public IObjectiveFunction Fork()
+        public IObjectiveVectorFunction Fork()
         {
             // no need to deep-clone values since they are replaced on evaluation
             return new GradientObjectiveFunction(_function)

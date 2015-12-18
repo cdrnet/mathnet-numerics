@@ -10,7 +10,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
     {
         public LazyRosenbrockObjectiveFunction() : base(true, true) { }
 
-        public override IObjectiveFunction CreateNew()
+        public override IObjectiveVectorFunction CreateNew()
         {
             return new LazyRosenbrockObjectiveFunction();
         }
@@ -35,7 +35,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
     {
         public RosenbrockObjectiveFunction() : base(true, true) { }
 
-        public override IObjectiveFunction CreateNew()
+        public override IObjectiveVectorFunction CreateNew()
         {
             return new RosenbrockObjectiveFunction();
         }
@@ -56,7 +56,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
         [Test]
         public void FindMinimum_Rosenbrock_Easy()
         {
-            var obj = ObjectiveFunction.GradientHessian(RosenbrockFunction.Value, RosenbrockFunction.Gradient, RosenbrockFunction.Hessian);
+            var obj = ObjectiveVectorFunction.GradientHessian(RosenbrockFunction.Value, RosenbrockFunction.Gradient, RosenbrockFunction.Hessian);
             var solver = new NewtonMinimizer(1e-5, 1000);
             var result = solver.FindMinimum(obj, new DenseVector(new[] { 1.2, 1.2 }));
 
@@ -67,7 +67,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
         [Test]
         public void FindMinimum_Rosenbrock_Hard()
         {
-            var obj = ObjectiveFunction.GradientHessian(point => Tuple.Create(RosenbrockFunction.Value(point), RosenbrockFunction.Gradient(point), RosenbrockFunction.Hessian(point)));
+            var obj = ObjectiveVectorFunction.GradientHessian(point => Tuple.Create(RosenbrockFunction.Value(point), RosenbrockFunction.Gradient(point), RosenbrockFunction.Hessian(point)));
             var solver = new NewtonMinimizer(1e-5, 1000);
             var result = solver.FindMinimum(obj, new DenseVector(new[] { -1.2, 1.0 }));
 
