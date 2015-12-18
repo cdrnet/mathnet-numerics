@@ -2,7 +2,7 @@
 
 namespace MathNet.Numerics.Optimization.ObjectiveFunctions
 {
-    public class SimpleObjectiveFunction1D : IObjectiveFunction1D
+    internal class SimpleObjectiveFunction1D : IObjectiveFunction1D
     {
         public Func<double, double> Objective { get; private set; }
         public Func<double, double> Derivative { get; private set; }

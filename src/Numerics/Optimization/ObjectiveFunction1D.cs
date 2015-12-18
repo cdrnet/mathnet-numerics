@@ -1,17 +1,32 @@
-﻿namespace MathNet.Numerics.Optimization
-{
-    public interface IEvaluation1D
-    {
-        double Point { get; }
-        double Value { get; }
-        double Derivative { get; }
-        double SecondDerivative { get; }
-    }
+﻿using System;
+using MathNet.Numerics.Optimization.ObjectiveFunctions;
 
-    public interface IObjectiveFunction1D
+namespace MathNet.Numerics.Optimization
+{
+    public static class ObjectiveFunction1D
     {
-        bool DerivativeSupported { get; }
-        bool SecondDerivativeSupported { get; }
-        IEvaluation1D Evaluate(double point);
+        /// <summary>
+        /// Objective function where neither first nor second derivative is available. Lazy evaluation.
+        /// </summary>
+        public static IObjectiveFunction1D Value(Func<double, double> function)
+        {
+            return new SimpleObjectiveFunction1D(function);
+        }
+
+        /// <summary>
+        /// Objective function where the first derivative is available. Lazy evaluation.
+        /// </summary>
+        public static IObjectiveFunction1D FirstDerivative(Func<double, double> function, Func<double, double> derivative)
+        {
+            return new SimpleObjectiveFunction1D(function, derivative);
+        }
+
+        /// <summary>
+        /// Objective function where the first and second derivative are available. Lazy evaluation.
+        /// </summary>
+        public static IObjectiveFunction1D FirstSecondDerivative(Func<double, double> function, Func<double, double> derivative, Func<double, double> secondDerivative)
+        {
+            return new SimpleObjectiveFunction1D(function, derivative, secondDerivative);
+        }
     }
 }

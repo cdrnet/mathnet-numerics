@@ -1,6 +1,5 @@
 ﻿using System;
 using MathNet.Numerics.Optimization;
-using MathNet.Numerics.Optimization.ObjectiveFunctions;
 using NUnit.Framework;
 
 namespace MathNet.Numerics.UnitTests.OptimizationTests
@@ -13,7 +12,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
         {
             var algorithm = new GoldenSectionMinimizer(1e-5, 1000);
             var f1 = new Func<double, double>(x => (x - 3)*(x - 3));
-            var obj = new SimpleObjectiveFunction1D(f1);
+            var obj = ObjectiveFunction1D.Value(f1);
             var r1 = algorithm.FindMinimum(obj, -100, 100);
 
             Assert.That(Math.Abs(r1.MinimizingPoint - 3.0), Is.LessThan(1e-4));
@@ -24,7 +23,7 @@ namespace MathNet.Numerics.UnitTests.OptimizationTests
         {
             var algorithm = new GoldenSectionMinimizer(1e-5, 1000);
             var f1 = new Func<double, double>(x => (x - 3)*(x - 3));
-            var obj = new SimpleObjectiveFunction1D(f1);
+            var obj = ObjectiveFunction1D.Value(f1);
             var r1 = algorithm.FindMinimum(obj, -5, 5);
 
             Assert.That(Math.Abs(r1.MinimizingPoint - 3.0), Is.LessThan(1e-4));
