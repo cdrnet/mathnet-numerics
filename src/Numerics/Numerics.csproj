@@ -117,6 +117,7 @@
     <Compile Include="Optimization\IUnconstrainedMinimizer.cs" />
     <Compile Include="Optimization\MinimizationResult.cs" />
     <Compile Include="Optimization\MinimizationWithLineSearchResult.cs" />
+    <Compile Include="Optimization\ObjectiveFunctions\SimpleObjectiveFunction1D.cs" />
     <Compile Include="Precision.Comparison.cs" />
     <Compile Include="Precision.Equality.cs" />
     <Compile Include="Distributions\Bernoulli.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using MathNet.Numerics.Optimization;
+using MathNet.Numerics.Optimization.ObjectiveFunctions;
 using NUnit.Framework;
 
 namespace MathNet.Numerics.UnitTests.OptimizationTests
