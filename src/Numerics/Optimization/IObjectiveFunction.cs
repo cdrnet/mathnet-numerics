@@ -10,8 +10,9 @@
 
     public interface IObjectiveFunction
     {
-        bool DerivativeSupported { get; }
-        bool SecondDerivativeSupported { get; }
+        bool IsDerivativeSupported { get; }
+        bool IsSecondDerivativeSupported { get; }
+
         IEvaluation Evaluate(double point);
     }
 }

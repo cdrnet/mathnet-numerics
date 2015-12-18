@@ -15,10 +15,10 @@ namespace MathNet.Numerics.Optimization.ObjectiveFunctions
         bool _hasHessianValue;
         Matrix<double> _hessianValue;
 
-        protected LazyObjectiveFunctionBase(bool gradientSupported, bool hessianSupported)
+        protected LazyObjectiveFunctionBase(bool isGradientSupported, bool isHessianSupported)
         {
-            IsGradientSupported = gradientSupported;
-            IsHessianSupported = hessianSupported;
+            IsGradientSupported = isGradientSupported;
+            IsHessianSupported = isHessianSupported;
         }
 
         public abstract IObjectiveVectorFunction CreateNew();
@@ -40,7 +40,7 @@ namespace MathNet.Numerics.Optimization.ObjectiveFunctions
         public bool IsGradientSupported { get; private set; }
         public bool IsHessianSupported { get; private set; }
 
-        public void EvaluateAt(Vector<double> point)
+        public void Evaluate(Vector<double> point)
         {
             _point = point;
             _hasFunctionValue = false;

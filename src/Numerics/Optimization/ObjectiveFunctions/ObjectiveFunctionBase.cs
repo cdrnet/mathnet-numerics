@@ -26,7 +26,7 @@ namespace MathNet.Numerics.Optimization.ObjectiveFunctions
         public bool IsGradientSupported { get; private set; }
         public bool IsHessianSupported { get; private set; }
 
-        public void EvaluateAt(Vector<double> point)
+        public void Evaluate(Vector<double> point)
         {
             Point = point;
             Evaluate();

@@ -168,7 +168,7 @@ namespace MathNet.Numerics.Optimization
             double[] errorValues = new double[vertices.Length];
             for (int i = 0; i < vertices.Length; i++)
             {
-                objectiveFunction.EvaluateAt(vertices[i]);
+                objectiveFunction.Evaluate(vertices[i]);
                 errorValues[i] = objectiveFunction.Value;
             }
             return errorValues;
@@ -290,7 +290,7 @@ namespace MathNet.Numerics.Optimization
             Vector<double> newPoint = centroidToHighPoint.Multiply(scaleFactor).Add(centroid);
 
             // evaluate the new point
-            objectiveFunction.EvaluateAt(newPoint);
+            objectiveFunction.Evaluate(newPoint);
             double newErrorValue = objectiveFunction.Value;
 
             // if it's better, replace the old high point
@@ -319,7 +319,7 @@ namespace MathNet.Numerics.Optimization
                 if (i != errorProfile.LowestIndex)
                 {
                     vertices[i] = (vertices[i].Add(lowestVertex)).Multiply(0.5);
-                    objectiveFunction.EvaluateAt(vertices[i]);
+                    objectiveFunction.Evaluate(vertices[i]);
                     errorValues[i] = objectiveFunction.Value;
                 }
             }

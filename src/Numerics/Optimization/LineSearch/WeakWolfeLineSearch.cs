@@ -38,12 +38,13 @@ namespace MathNet.Numerics.Optimization.LineSearch
             _maximumIterations = maxIterations;
         }
 
-        /// <param name="startingPoint">The objective function being optimized, evaluated at the starting point of the search</param>
+        /// <param name="objectiveFunction">The objective function being optimized></param>
+        /// <param name="startingPoint">The evaluatoin of the objective function at the starting point of the search</param>
         /// <param name="searchDirection">Search direction</param>
         /// <param name="initialStep">Initial size of the step in the search direction</param>
-        public LineSearchResult FindConformingStep(IVectorEvaluation startingPoint, Vector<double> searchDirection, double initialStep)
+        public LineSearchResult FindConformingStep(IObjectiveVectorFunction objectiveFunction, IVectorEvaluation startingPoint, Vector<double> searchDirection, double initialStep)
         {
-            if (!startingPoint.IsGradientSupported)
+            if (!objectiveFunction.IsGradientSupported)
                 throw new ArgumentException("objective function does not support gradient");
 
             double lowerBound = 0.0;
@@ -61,7 +62,7 @@ namespace MathNet.Numerics.Optimization.LineSearch
             MinimizationResult.ExitCondition reasonForExit = MinimizationResult.ExitCondition.None;
             for (ii = 0; ii < _maximumIterations; ++ii)
             {
-                objective.EvaluateAt(initialPoint + searchDirection * step);
+                objective.Evaluate(initialPoint + searchDirection * step);
                 ValidateGradient(objective);
                 ValidateValue(objective);
 

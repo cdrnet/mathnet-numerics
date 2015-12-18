@@ -30,7 +30,7 @@ namespace MathNet.Numerics.Optimization
             }
 
             // Check that we're not already done
-            objective.EvaluateAt(initialGuess);
+            objective.Evaluate(initialGuess);
             ValidateGradient(objective);
             if (ExitCriteriaSatisfied(objective.Gradient))
             {
@@ -61,7 +61,7 @@ namespace MathNet.Numerics.Optimization
                     LineSearchResult result;
                     try
                     {
-                        result = lineSearcher.FindConformingStep(objective, searchDirection, 1.0);
+                        result = lineSearcher.FindConformingStep(objective, objective, searchDirection, 1.0);
                     }
                     catch (Exception e)
                     {
@@ -74,7 +74,7 @@ namespace MathNet.Numerics.Optimization
                 }
                 else
                 {
-                    objective.EvaluateAt(objective.Point + searchDirection);
+                    objective.Evaluate(objective.Point + searchDirection);
                 }
 
                 ValidateGradient(objective);

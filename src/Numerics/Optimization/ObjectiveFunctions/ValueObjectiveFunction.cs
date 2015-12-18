@@ -37,7 +37,7 @@ namespace MathNet.Numerics.Optimization.ObjectiveFunctions
             get { return false; }
         }
 
-        public void EvaluateAt(Vector<double> point)
+        public void Evaluate(Vector<double> point)
         {
             Point = point;
             Value = _function(point);

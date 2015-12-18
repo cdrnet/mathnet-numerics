@@ -20,7 +20,7 @@ namespace MathNet.Numerics.Optimization
             if (!objective.IsGradientSupported)
                 throw new IncompatibleObjectiveException("Gradient not supported in objective function, but required for ConjugateGradient minimization.");
 
-            objective.EvaluateAt(initialGuess);
+            objective.Evaluate(initialGuess);
             var gradient = objective.Gradient;
             ValidateGradient(objective);
 
@@ -39,7 +39,7 @@ namespace MathNet.Numerics.Optimization
             LineSearchResult result;
             try
             {
-                result = lineSearcher.FindConformingStep(objective, searchDirection, initialStepSize);
+                result = lineSearcher.FindConformingStep(objective, objective, searchDirection, initialStepSize);
             }
             catch (Exception e)
             {
@@ -70,7 +70,7 @@ namespace MathNet.Numerics.Optimization
 
                 try
                 {
-                    result = lineSearcher.FindConformingStep(objective, searchDirection, stepSize);
+                    result = lineSearcher.FindConformingStep(objective, objective, searchDirection, stepSize);
                 }
                 catch (Exception e)
                 {

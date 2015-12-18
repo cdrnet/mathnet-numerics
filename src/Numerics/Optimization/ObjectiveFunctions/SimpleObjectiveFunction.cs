@@ -29,12 +29,12 @@ namespace MathNet.Numerics.Optimization.ObjectiveFunctions
             SecondDerivative = secondDerivative;
         }
 
-        public bool DerivativeSupported
+        public bool IsDerivativeSupported
         {
             get { return Derivative != null; }
         }
 
-        public bool SecondDerivativeSupported
+        public bool IsSecondDerivativeSupported
         {
             get { return SecondDerivative != null; }
         }

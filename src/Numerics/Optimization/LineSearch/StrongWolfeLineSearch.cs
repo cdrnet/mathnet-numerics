@@ -34,7 +34,7 @@ namespace MathNet.Numerics.Optimization.LineSearch
             MinimizationResult.ExitCondition reasonForExit = MinimizationResult.ExitCondition.None;
             for (ii = 0; ii < this.MaximumIterations; ++ii)
             {
-                candidateEval.EvaluateAt(objective.Point + searchDirection*step);
+                candidateEval.Evaluate(objective.Point + searchDirection*step);
 
                 double stepDd = searchDirection*candidateEval.Gradient;
 

@@ -14,12 +14,11 @@ namespace MathNet.Numerics.Optimization
         IObjectiveVectorFunction Fork();
 
         Vector<double> Point { get; }
+
         double Value { get; }
 
-        bool IsGradientSupported { get; }
         Vector<double> Gradient { get; }
 
-        bool IsHessianSupported { get; }
         Matrix<double> Hessian { get; }
     }
 
@@ -28,6 +27,9 @@ namespace MathNet.Numerics.Optimization
     /// </summary>
     public interface IObjectiveVectorFunction : IVectorEvaluation
     {
-        void EvaluateAt(Vector<double> point);
+        bool IsGradientSupported { get; }
+        bool IsHessianSupported { get; }
+
+        void Evaluate(Vector<double> point);
     }
 }

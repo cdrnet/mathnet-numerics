@@ -22,7 +22,7 @@ namespace MathNet.Numerics.Optimization
             if (!objective.IsGradientSupported)
                 throw new IncompatibleObjectiveException("Gradient not supported in objective function, but required for BFGS minimization.");
 
-            objective.EvaluateAt(initialGuess);
+            objective.Evaluate(initialGuess);
             ValidateGradient(objective);
 
             var initial = objective.Fork();
@@ -46,7 +46,7 @@ namespace MathNet.Numerics.Optimization
             LineSearchResult result;
             try
             {
-                result = lineSearcher.FindConformingStep(objective, searchDirection, stepSize);
+                result = lineSearcher.FindConformingStep(objective, objective, searchDirection, stepSize);
             }
             catch (Exception e)
             {
@@ -89,7 +89,7 @@ namespace MathNet.Numerics.Optimization
 
                 try
                 {
-                    result = lineSearcher.FindConformingStep(objective, searchDirection, 1.0);
+                    result = lineSearcher.FindConformingStep(objective, objective, searchDirection, 1.0);
                 }
                 catch (Exception e)
                 {

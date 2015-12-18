@@ -35,7 +35,7 @@ namespace MathNet.Numerics.Optimization
                 if (initialGuess[ii] < lowerBound[ii] || initialGuess[ii] > upperBound[ii])
                     throw new ArgumentException("Initial guess is not in the feasible region");
 
-            objective.EvaluateAt(initialGuess);
+            objective.Evaluate(initialGuess);
 
             // Check that we're not already done
             MinimizationResult.ExitCondition currentExitCondition = ExitCriteriaSatisfied(objective, null, lowerBound, upperBound, 0);
